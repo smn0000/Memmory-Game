@@ -2,6 +2,15 @@
     box-sizing: border-box;
 }
 
+.prevent-click , [data-guessed="true"], [data-flipped="false"]{
+    pointer-events: none;
+}
+
+[data-guessed="true"] .back{
+    background: red;
+    opacity: 0.5;
+}
+
 button{
     border: none;
     padding: none;
@@ -14,23 +23,50 @@ body{
 .app{
     height: 100vh;
     width: 100vw;
-    background-color: #1d1d1d;
+    background-color: #5e5858;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.game{
-    height: 85%;
-    aspect-ratio: 1/1;
-    outline: 10px grey solid;
+.aside{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
 }
+
+.aside div, aside select , aside button{
+    margin: 20px 0;
+    width: 50%;
+    text-align: center;
+}
+
+
+.game{
+    width: 75%;
+    height: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board{
+    height: 80%;
+    aspect-ratio: 1/1;
+    background-color: white;
+}
+
 
 .grid{
     height: 100%;
     width: 100%;
     display: grid;
-    grid-gap: 10px;
+    grid-gap: 5px;
+    
 }
 
 .cell{
@@ -40,7 +76,8 @@ body{
     transition: transform 500ms;
     position: relative;
     display: flex;
-
+    font-size: 5rem;
+    
 }
 
 .flipped{
@@ -49,8 +86,7 @@ body{
 
 .front, .back{
     backface-visibility: hidden;
-
-    
+    outline: 1px solid black;
 }
 
 .front{
@@ -60,8 +96,9 @@ body{
     position: absolute;
     top: 0;
     left: 0;
-  
- 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .back{
