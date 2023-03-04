@@ -1,4 +1,5 @@
 import {useState, useEffect, useRef} from 'react'
+import Gameover from './Gameover'
 import Grid from './Grid'
 
 const game = () => {
@@ -7,34 +8,35 @@ const game = () => {
     const [size, setSize] = useState(4)
     const [score, setScore] = useState(0)
     const [started, setStarted] = useState(false)
+    const [gameOver, setGameOver] = useState(false)
     const gameWindowRef = useRef()
     const selectRef = useRef()
     const flipSpeed = 500
 
-    let timeout
+    let timeout = []
 
     const startGame = (size) =>{
+      setGameOver(false)
       initializeGame(size);
       setStarted(true)
       
     }
 
     const stopGame = () => {
-      clearTimeout(timeout)
+      timeout.forEach(timeout => clearTimeout(timeout))
       setStarted(false)
       setScore(0)
       setGrid([])
     }
 
     useEffect(()=>{  
-      timeout = setTimeout(() => {
+        timeout.push(setTimeout(() => {
           if(grid.length > 0) {
             let temp = grid.slice()
             temp.forEach(element => element.flip())
             setGrid(temp)
-            console.log(id)
           }
-        },2000*size)
+        },2000*size))
       
     },[started])
 
@@ -60,6 +62,9 @@ const game = () => {
                 {this.flipped = !this.flipped}
               },
           }
+
+          //Populates grid.image with random numbers
+
           let rand = Math.floor(Math.random() * images.length)
           grid[i].image = images[rand]
           images.splice(rand,1)
@@ -70,12 +75,14 @@ const game = () => {
 
     const createImages = (size) => {
       let arr = []
-      let num = (size*size)/2
-      for(let i=1; i<=num; i++){
+
+      for (let i = 1; i <= size*size/2; i++) {
         arr.push(i,i)
       }
       return arr
     }
+
+
 
     const handleFlip = (id)=>{
       // Flip the cell
@@ -95,24 +102,24 @@ const game = () => {
       //If correct
       if(firstCell.image == secondCell.image){ 
         setScore(current => current+1)
-        setTimeout(()=> {
+        timeout.push(setTimeout(()=> {
             temp[firstCell.id].setGuessed()
             temp[secondCell.id].setGuessed() 
             setGrid(temp)
             gameWindowRef.current.classList.toggle('prevent-click')
-            console.log(checkForGameOver())
-          },flipSpeed)
+            checkForGameOver() && handleGameOver()
+          },flipSpeed))
       
       }
       //If incorrect
       else{
         setScore(current => current-1)
-          setTimeout(()=> {
+        timeout.push(setTimeout(()=> {
             temp[firstCell.id].flip()
             temp[secondCell.id].flip()
             setGrid(temp)
             gameWindowRef.current.classList.toggle('prevent-click')
-        },flipSpeed) 
+        },flipSpeed)) 
         
       }
       
@@ -120,6 +127,7 @@ const game = () => {
 
     const checkForGameOver = () => grid.filter(element => !element.guessed === true).length === 0 ? true : false
     
+    const handleGameOver = () =>  timeout.push(setTimeout( ()=> {setGameOver(true) },1000))
      
 
 
@@ -127,18 +135,18 @@ const game = () => {
     <>
       <aside className='aside'>
         <div>Score: {score}</div>
-        <select ref={selectRef} onChange={handleSelect}>
-          <option selected={size === 2 ? true : false} value='2' >2 - easy</option>
-          <option selected={size === 4 ? true : false} value='4'>4 - normal</option>
-          <option selected={size === 6 ? true : false} value='6'>6 - very hard</option>
-          <option selected={size === 7 ? true : false} value='8' >8 - impossible</option>
+        <select ref={selectRef} onChange={handleSelect} defaultValue={String(size)}>
+          <option value='2'>2 - easy</option>
+          <option value='4'>4 - normal</option>
+          <option value='6'>6 - very hard</option>
+          <option value='8'>8 - impossible</option>
         </select>
         <button onClick={() => started ? stopGame() : startGame(size)}>{started ? "Stop Game" :  "Start Game"}</button>
       </aside>
     
       <div className='game' ref={gameWindowRef}>
         <div className='board'>
-          <Grid grid={grid} size={size} onFlip={handleFlip}/>
+          {gameOver ? <Gameover/> :<Grid grid={grid} size={size} onFlip={handleFlip}/>}
         </div>
       </div>
     </>
