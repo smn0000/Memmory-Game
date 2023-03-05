@@ -42,7 +42,7 @@ const Grid = ({grid, size , onFlip}) => {
 }
 
   return (
-    <div className="grid" style={{gridTemplateColumns : `repeat(${size},1fr)`, gridTemplateRows : `repeat(${size},1fr)`}}>
+    <div className="grid" style={{gridTemplateColumns : `repeat(${size[0]},1fr)`, gridTemplateRows : `repeat(${size[1]},1fr)`}}>
         {grid.map( element => (
         <button data-guessed={element.guessed} data-flipped={element.flipped} key={element.id} className="cell " onClick={() => onFlip(element.id)}>
             <div className="front">

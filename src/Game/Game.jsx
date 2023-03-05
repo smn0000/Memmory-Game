@@ -1,17 +1,19 @@
 import {useState, useEffect, useRef} from 'react'
+import Aside from './Aside'
 import Gameover from './Gameover'
 import Grid from './Grid'
 
 const game = () => {
 
     const [grid, setGrid] = useState([])
-    const [size, setSize] = useState(4)
+    const [size, setsize] = useState([4,4])
     const [score, setScore] = useState(0)
     const [started, setStarted] = useState(false)
     const [gameOver, setGameOver] = useState(false)
     const gameWindowRef = useRef()
-    const selectRef = useRef()
-    const flipSpeed = 500
+   
+    const flipSpeed = 500 //Delay between flip
+    const baseTime = 1000  // Base time to remember the layout
 
     let timeout = []
 
@@ -36,21 +38,26 @@ const game = () => {
             temp.forEach(element => element.flip())
             setGrid(temp)
           }
-        },2000*size))
+        },baseTime* size[0]*size[1]/2)) /*Gives more time based on grid size, t = baseTime * width * hieght/ 2 */
       
     },[started])
 
-    const handleSelect = () => {
+    const handleSelectBoardSize = (size) => {
       stopGame()
-      setSize(Number(selectRef.current.value))
+      setsize([size,size])
+    }
 
+    const handleSelectCustomSize = (width,length) => {
+      stopGame()
+      setsize([ width, length ])
     }
 
 
     const initializeGame = (size) =>{
       let images = createImages(size)
-      let grid = [size*size]
-      for (let i = 0; i < size*size; i++) {
+      let grid = [size[0]*size[1]]
+
+      for (let i = 0; i < size[0]*size[1]; i++) {
           grid[i] = {
               id: i,
               image: null,
@@ -76,7 +83,7 @@ const game = () => {
     const createImages = (size) => {
       let arr = []
 
-      for (let i = 1; i <= size*size/2; i++) {
+      for (let i = 1; i <= size[0]*size[1]/2; i++) {
         arr.push(i,i)
       }
       return arr
@@ -139,17 +146,8 @@ const game = () => {
 
   return (
     <>
-      <aside className='aside'>
-        <div>Score: {score}</div>
-        <select ref={selectRef} onChange={handleSelect} defaultValue={String(size)}>
-          <option value='2'>2 - easy</option>
-          <option value='4'>4 - normal</option>
-          <option value='6'>6 - very hard</option>
-          <option value='8'>8 - impossible</option>
-        </select>
-        <button onClick={() => started ? stopGame() : startGame(size)}>{started ? "Stop Game" :  "Start Game"}</button>
-      </aside>
-    
+      <Aside size={size} score={score} started={started} onSelect={handleSelectBoardSize} onCustomSelect={handleSelectCustomSize} startGame={startGame} stopGame={stopGame}/>
+
       <div className='game' ref={gameWindowRef}>
         <div className='board'>
           <Grid grid={grid} size={size} onFlip={handleFlip}/>
