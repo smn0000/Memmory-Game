@@ -26,7 +26,7 @@ Project is created with:
 ## Setup
 To run this project, install it locally using npm:
 ```
-$ cd ../memmory_game
+$ cd ../memmory-game
 $ npm install vite
 $ npm run dev
 ```
