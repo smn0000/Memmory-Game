@@ -27,6 +27,6 @@ $ cd ../memmory_game
 $ npm install vite
 $ npm run dev
 ```
-![Local server IP](image/readme_screenshot.png)
+![Local server IP](/images/readme_screenshot.png)
 
-Paste The specified IP adress into your browser
+Paste the specified IP address into your browser
