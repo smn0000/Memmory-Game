@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Gameover = () => {
+const Gameover = ({score}) => {
   return (
-    <div>Gameover</div>
+    <div className='gameover'>
+      <p>Gameover</p>
+      <p>Score: {score}</p>
+      
+      </div>
   )
 }
 

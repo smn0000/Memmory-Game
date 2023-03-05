@@ -16,6 +16,7 @@ const game = () => {
     let timeout = []
 
     const startGame = (size) =>{
+      setScore(0)
       setGameOver(false)
       initializeGame(size);
       setStarted(true)
@@ -25,7 +26,6 @@ const game = () => {
     const stopGame = () => {
       timeout.forEach(timeout => clearTimeout(timeout))
       setStarted(false)
-      setScore(0)
       setGrid([])
     }
 
@@ -127,7 +127,13 @@ const game = () => {
 
     const checkForGameOver = () => grid.filter(element => !element.guessed === true).length === 0 ? true : false
     
-    const handleGameOver = () =>  timeout.push(setTimeout( ()=> {setGameOver(true) },1000))
+    const handleGameOver = () =>  {
+      timeout.push(setTimeout( ()=> {
+        stopGame()
+        setGameOver(true)
+      },1000))
+     
+    }
      
 
 
@@ -146,7 +152,8 @@ const game = () => {
     
       <div className='game' ref={gameWindowRef}>
         <div className='board'>
-          {gameOver ? <Gameover/> :<Grid grid={grid} size={size} onFlip={handleFlip}/>}
+          <Grid grid={grid} size={size} onFlip={handleFlip}/>
+          {gameOver && <Gameover score={score}/>}
         </div>
       </div>
     </>
