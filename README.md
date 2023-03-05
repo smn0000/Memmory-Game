@@ -4,15 +4,16 @@ Simple memmory game created with ReactJS
 
 ## Table of contents
 * [General info](#general-info)
-* [Features](#feautres)
+* [Features](#features)
 * [Technologies](#technologies)
 * [Setup](#setup)
 
 ## General info
+
 This project is simple memmory game
 
-Live preview: https://memmorygame.vercel.app/
-
+<a href="https://memmorygame.vercel.app/" target="_blank">Live preview</a>
+ 
 ## Features
 * Keep your score
 * Create custom board up to 8x8
