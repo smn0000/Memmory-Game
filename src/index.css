@@ -17,6 +17,7 @@ button{
 
 body{
     margin: 0;
+    overflow: hidden;
 }
 
 .app{
@@ -126,4 +127,9 @@ body{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+
+svg{
+    max-width: 100%;
+    max-width: 100%;
 }
