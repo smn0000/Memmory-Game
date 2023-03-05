@@ -11,6 +11,8 @@ Simple memmory game created with ReactJS
 ## General info
 This project is simple memmory game
 
+Live preview: https://memmorygame.vercel.app/
+
 ## Features
 * Keep your score
 * Create custom board up to 8x8
