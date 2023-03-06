@@ -6,7 +6,7 @@ import Grid from './Grid'
 const game = () => {
 
     const [grid, setGrid] = useState([])
-    const [size, setsize] = useState([4,4])
+    const [size, setSize] = useState([4,4])
     const [score, setScore] = useState(0)
     const [started, setStarted] = useState(false)
     const [gameOver, setGameOver] = useState(false)
@@ -42,14 +42,9 @@ const game = () => {
       
     },[started])
 
-    const handleSelectBoardSize = (size) => {
+    const handleSelectBoardSize = (length,width) => {
       stopGame()
-      setsize([size,size])
-    }
-
-    const handleSelectCustomSize = (width,length) => {
-      stopGame()
-      setsize([ width, length ])
+      setSize([length,width])
     }
 
 
@@ -146,7 +141,7 @@ const game = () => {
 
   return (
     <>
-      <Aside size={size} score={score} started={started} onSelect={handleSelectBoardSize} onCustomSelect={handleSelectCustomSize} startGame={startGame} stopGame={stopGame}/>
+      <Aside size={size} score={score} started={started} setSize={setSize} startGame={startGame} stopGame={stopGame}/>
 
       <div className='game' ref={gameWindowRef}>
         <div className='board'>
