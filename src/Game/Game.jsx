@@ -12,8 +12,8 @@ const game = () => {
     const [gameOver, setGameOver] = useState(false)
     const gameWindowRef = useRef()
    
-    const flipSpeed = 500 //Delay between flip
-    const baseTime = 1000  // Base time to remember the layout
+    const FLIP_SPEED = 500 //Delay between flip
+    const BASE_TIME = 1000  // Base time to remember the layout
 
     let timeout = []
 
@@ -38,22 +38,17 @@ const game = () => {
             temp.forEach(element => element.flip())
             setGrid(temp)
           }
-        },baseTime* size[0]*size[1]/2)) /*Gives more time based on grid size, t = baseTime * width * hieght/ 2 */
+        },BASE_TIME * size[0]*size[1]/2)) /*Gives more time based on grid size, t = BASE_TIME * width * hieght/ 2 */
       
     },[started])
-
-    const handleSelectBoardSize = (length,width) => {
-      stopGame()
-      setSize([length,width])
-    }
 
 
     const initializeGame = (size) =>{
       let images = createImages(size)
-      let grid = [size[0]*size[1]]
+      let gridCells = [size[0]*size[1]]
 
       for (let i = 0; i < size[0]*size[1]; i++) {
-          grid[i] = {
+          gridCells[i] = {
               id: i,
               image: null,
               flipped: false,
@@ -68,23 +63,40 @@ const game = () => {
           //Populates grid.image with random numbers
 
           let rand = Math.floor(Math.random() * images.length)
-          grid[i].image = images[rand]
+          gridCells[i].image = images[rand]
           images.splice(rand,1)
         }
-
-      setGrid(grid)
+        
+      setGrid(gridCells)
     }
 
     const createImages = (size) => {
+      //Creates an array of all 32 possible images
+      //Images are represented as numbers
+      const images = []
+      for(let i = 0; i < 32; i++){
+        images[i] = i+1
+      }
+      shuffleArray(images)
+      console.log(images)
       let arr = []
+      let imagesToCreate = size[0]*size[1]/2;
 
-      for (let i = 1; i <= size[0]*size[1]/2; i++) {
-        arr.push(i,i)
+      for (let i = 0; i < imagesToCreate; i++) {
+       arr.push(images[i],images[i])
       }
       return arr
     }
 
-
+    const shuffleArray = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+    
 
     const handleFlip = (id)=>{
       // Flip the cell
@@ -110,7 +122,7 @@ const game = () => {
             setGrid(temp)
             gameWindowRef.current.classList.toggle('prevent-click')
             checkForGameOver() && handleGameOver()
-          },flipSpeed))
+          },FLIP_SPEED))
       
       }
       //If incorrect
@@ -121,7 +133,7 @@ const game = () => {
             temp[secondCell.id].flip()
             setGrid(temp)
             gameWindowRef.current.classList.toggle('prevent-click')
-        },flipSpeed)) 
+        },FLIP_SPEED)) 
         
       }
       

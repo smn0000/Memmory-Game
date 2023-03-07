@@ -6,10 +6,6 @@
     pointer-events: none;
 }
 
-[data-guessed="true"] .back{
-    background: rgba(0, 0, 0, 0.493);
-}
-
 button{
     border: none;
     padding: none;
@@ -55,35 +51,35 @@ body{
 }
 
 .board{
-    height: 80%;
-    aspect-ratio: 1/1;
     background-color: white;
     position: relative;
+    width: 50%;
 }
 
 
 
 .grid{
-    height: 100%;
-    width: 100%;
     display: grid;
-    grid-gap: 5px;
     
 }
 
 .cell{
+    aspect-ratio: 1;
     backface-visibility: hidden;
     transform-style: preserve-3d;
     cursor: pointer;
     transition: transform 500ms;
     position: relative;
     display: flex;
-    font-size: 5rem;
-    
+    font-size: 5rem;    
 }
 
 [data-flipped='true']{
     transform: rotateY(180deg);
+}
+
+[data-guessed="true"] .back{
+    background: rgba(0, 0, 0, 0.493);
 }
 
 .front, .back{
