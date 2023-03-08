@@ -44,12 +44,12 @@ const Grid = ({grid, size , onFlip}) => {
   return (
     <div className="grid" style={{gridTemplateColumns : `repeat(${size[0]},1fr)`, gridTemplateRows : `repeat(${size[1]},1fr)`}}>
         {grid.map( element => (
-        <button data-guessed={element.guessed} data-flipped={element.flipped} key={element.id} className="cell" onClick={() => onFlip(element.id)}>
+        <div data-guessed={element.guessed} data-flipped={element.flipped} key={element.id} className="cell" onClick={() => onFlip(element.id)}>
             <div className="front">
               {getIcon(element.image)}
             </div>
             <div className="back"></div>
-        </button>
+        </div>
         ))}
     </div>
   )
