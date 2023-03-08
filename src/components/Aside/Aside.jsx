@@ -9,13 +9,12 @@ const Aside = ({score, size, started, setSize, startGame, stopGame}) => {
   
    
     const selectRef = useRef()
-    const selectLengthRef = useRef()
+    const selectHeightRef = useRef()
     const selectWidthRef = useRef()
 
     const handleSelect = (value)=>{
       stopGame()
-      console.log(value)
-      if(value==='custom'){
+      if(value==='customSelect'){
         setShowCustom(true)
       }
       else{
@@ -26,24 +25,24 @@ const Aside = ({score, size, started, setSize, startGame, stopGame}) => {
 
     }
 
-    const handleCustomSelect = (width, length)=>{
-      if(validateSize(width,length)){
-        setSize([width,length])
+    const handleCustomSelect = (width, height)=>{
+      if(validateSize(width,height)){
+        setSize([width,height])
         setShowCustom(false)
         setSelectedCustom(true)
       }
     }
 
-    const validateSize = (width,length)=>{
-      if(width > 0 && length > 0 && width <= 8 && length <=8){
-        if((width*length)%2==0) return true
+    const validateSize = (width,height)=>{
+      if(width > 0 && height > 0 && width <= 8 && height <=8){
+        if((width*height)%2==0) return true
         else{
           alert("Number of cells must be even")
           return false
         }
       }
       else {
-        alert("Length or width can't be bigger than 8")
+        alert("height or width can't be bigger than 8")
         return false;
       }
 
@@ -51,27 +50,30 @@ const Aside = ({score, size, started, setSize, startGame, stopGame}) => {
 
   return (
     <aside>
-        <div>{started && <>Score: {score}</>}</div>
+        <div className="score">Score: {score}</div>
         { !showCustom && 
         <div>
           <select ref={selectRef} onChange={() => handleSelect(selectRef.current.value)} defaultValue={selectedCustom ? 'custom' : String(size[0])}>
+            <option value='custom' hidden={!selectedCustom && 'hidden'}>Custom: {size[0]} x {size[1]}</option>
             <option value='2'>2 - easy</option>
             <option value='4'>4 - normal</option>
             <option value='6'>6 - very hard</option>
             <option value='8'>8 - impossible</option>
-            <option value='custom'>Custom</option>
+            <option value='customSelect'>Custom</option>
           </select>
          </div>}
         
        
 
         {showCustom && 
-          <div>
-            <label htmlFor="width">Width</label>
-            <input id="width" ref={selectLengthRef} type="text"/>
-            <label htmlFor="length">Length</label>
-            <input id="length" ref={selectWidthRef} type="text" />
-            <button onClick={() => handleCustomSelect(Number(selectWidthRef.current.value), Number(selectLengthRef.current.value))}>OK</button>
+          <div className="custom">
+            <div className="input-wrapper">
+              <input id="height" ref={selectWidthRef} type="text" />
+              <span>x</span>
+              <input id="width" ref={selectHeightRef} type="text"/>
+            </div>
+           
+            <button onClick={() => handleCustomSelect(Number(selectWidthRef.current.value), Number(selectHeightRef.current.value))}>OK</button>
           </div>
         }
 

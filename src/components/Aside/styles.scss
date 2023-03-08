@@ -3,8 +3,40 @@
 
 
 aside{
-    @include mixins.flex();
     background-color: variables.$color-secondary;
-    height: 10%;
-    width: 100%;
+    
+    @media (max-width: variables.$breakpoint-small-screen) {
+        @include mixins.flex(column);
+        justify-content: space-evenly;
+        height: 10%;
+        width: 100%;
+
+        .score{
+            height: 25%;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        select{
+            text-align: center;
+        }
+        
+        .custom{
+            @include mixins.flex(column);
+        }
+        
+        .input-wrapper{
+            @include mixins.flex();
+            input{
+                width: 20%;
+                margin: 5px 10px;
+            }
+        }
+        
+        button{
+            width: 8rem;
+        }
+    }
+    
 }
+
