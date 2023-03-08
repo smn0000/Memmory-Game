@@ -22,6 +22,7 @@ This project is simple memmory game
 Project is created with:
 * React: 18.2.0
 * Vite: 4.1.0
+* Sass: 1.58.3
 
 ## Setup
 To run this project, install it locally using npm:

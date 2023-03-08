@@ -1,15 +1,11 @@
-import Game from "./Game/Game"
+import Game from "./components/Game/Game"
+import './sass/_global.scss'
 
 function App() {
 
 
   return (
-    
-    
-      <div className="app">
         <Game/>
-      </div>
-    
   )
 }
 

@@ -1,0 +1,10 @@
+@use '../../sass/variables';
+@use '../../sass/mixins';
+
+
+aside{
+    @include mixins.flex();
+    background-color: variables.$color-secondary;
+    height: 10%;
+    width: 100%;
+}

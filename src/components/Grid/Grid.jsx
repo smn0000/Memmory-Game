@@ -1,5 +1,5 @@
-import * as ICONS/* {Bat,Beetle,Butterfly,Camel,Cat,Chameleon,Crab,Crocodile,Dog,Duck,Elk,Frog,Hippo,Husky,Kangaroo,Lion,Mancaw,
-Manatee,Mianyag,Mouse,Ostrich,Owl,Penguin,Raccoon,Rooster,Searay,Shark,Cow,Tiger,Toucan} */ from '../svgs/svgs'
+import * as ICONS from '../../svgs/svgs'
+import './styles.scss'
 const Grid = ({grid, size , onFlip}) => {
   const getIcon =  (image) =>{
   switch (image) {

@@ -1,7 +1,8 @@
 import {useState, useEffect, useRef} from 'react'
-import Aside from './Aside'
-import Gameover from './Gameover'
-import Grid from './Grid'
+import Aside from '../Aside/Aside'
+import Gameover from '../Gameover/Gameover'
+import Grid from '../Grid/Grid'
+import './styles.scss'
 
 const game = () => {
 
@@ -152,16 +153,16 @@ const game = () => {
 
 
   return (
-    <>
-      <Aside size={size} score={score} started={started} setSize={setSize} startGame={startGame} stopGame={stopGame}/>
+    <div className='app'>
 
+      <Aside size={size} score={score} started={started} setSize={setSize} startGame={startGame} stopGame={stopGame}/>
       <div className='game' ref={gameWindowRef}>
         <div className='board'>
           <Grid grid={grid} size={size} onFlip={handleFlip}/>
           {gameOver && <Gameover score={score}/>}
         </div>
       </div>
-    </>
+    </div>
   
   )
 }
