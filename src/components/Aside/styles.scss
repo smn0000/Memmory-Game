@@ -4,37 +4,77 @@
 
 aside{
     background-color: variables.$color-secondary;
+    width: 20%;
+    height: 100%;
+    @include mixins.flex(column);
+    text-transform: capitalize;
+
+    h1{
+        font-size: 3rem;
+
+    } 
+
+    select{
+        margin: 25px 0;
+        text-align: center;
+    }
+
+    .custom{
+        @include mixins.flex(column);
+
+    }
     
+    .input-wrapper{
+        @include mixins.flex();
+        input{
+            width: 20%;
+            margin: 5px 10px;
+        }
+    }
+    
+    select , button, input{
+        width: 12rem;
+        max-width: 175px;
+        height: 25px;
+        border-radius: 10px;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        background-color: variables.$color-green;
+        
+
+    }  
+
+    input{
+        background-color: white;
+        color: black;
+    }
+
+
     @media (max-width: variables.$breakpoint-small-screen) {
         @include mixins.flex(column);
         justify-content: space-evenly;
-        height: 10%;
+        height: 15%;
         width: 100%;
+        padding-top: 5px;
 
-        .score{
+        @media (max-height:600px) {
+            height: 25%;
+            
+        }
+
+        h1{
             height: 25%;
             font-weight: 700;
             font-size: 1.5rem;
+            order: 1;
         }
-        
         select{
-            text-align: center;
+            margin: 0;
         }
-        
-        .custom{
-            @include mixins.flex(column);
-        }
-        
-        .input-wrapper{
-            @include mixins.flex();
-            input{
-                width: 20%;
-                margin: 5px 10px;
-            }
-        }
-        
+       
         button{
-            width: 8rem;
+            width: 12rem;
         }
     }
     

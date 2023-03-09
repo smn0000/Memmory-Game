@@ -158,7 +158,7 @@ const game = () => {
       <Aside size={size} score={score} started={started} setSize={setSize} startGame={startGame} stopGame={stopGame}/>
       <div className='game' ref={gameWindowRef}>
         <div className='board'>
-          <Grid grid={grid} size={size} onFlip={handleFlip}/>
+          {started && <Grid grid={grid} size={size} onFlip={handleFlip}/>}
           {gameOver && <Gameover score={score}/>}
         </div>
       </div>

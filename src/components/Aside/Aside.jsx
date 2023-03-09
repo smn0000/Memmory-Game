@@ -50,9 +50,8 @@ const Aside = ({score, size, started, setSize, startGame, stopGame}) => {
 
   return (
     <aside>
-        <div className="score">Score: {score}</div>
+        <h1>Score: {score}</h1>
         { !showCustom && 
-        <div>
           <select ref={selectRef} onChange={() => handleSelect(selectRef.current.value)} defaultValue={selectedCustom ? 'custom' : String(size[0])}>
             <option value='custom' hidden={!selectedCustom && 'hidden'}>Custom: {size[0]} x {size[1]}</option>
             <option value='2'>2 - easy</option>
@@ -61,7 +60,7 @@ const Aside = ({score, size, started, setSize, startGame, stopGame}) => {
             <option value='8'>8 - impossible</option>
             <option value='customSelect'>Custom</option>
           </select>
-         </div>}
+        }
         
        
 
