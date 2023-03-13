@@ -1,0 +1,11 @@
+@use '../../sass/mixins';
+
+.gameover{
+    height: 100%;
+    width: 100%;
+    padding: 15%;
+    @include mixins.flex(column);
+    justify-content: space-evenly;
+    text-align: center;
+    font-size: 5rem;
+}
