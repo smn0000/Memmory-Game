@@ -79,7 +79,6 @@ const game = () => {
         images[i] = i+1
       }
       shuffleArray(images)
-      console.log(images)
       let arr = []
       let imagesToCreate = size[0]*size[1]/2;
 
