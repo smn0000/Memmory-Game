@@ -53,19 +53,20 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    transform: rotateY(180deg) translateZ(100px);
+    transform: rotateY(180deg) translateZ(1px);
     background-color: variables.$color-primmary;
     backface-visibility: hidden;
     background-color: red;
 }
 
 
-.prevent-click , [data-guessed=true], [data-flipped=false]{
+[data-guessed=true], [data-flipped=false]{
     pointer-events: none;
+    cursor: not-allowed;
 }
 
-[data-flipped=true]{
-    transform: rotateY(180deg) ;
+[data-flipped=true] .cell-inner{
+    transform: rotateX(180deg) ;
 }
 
 [data-guessed=true] .back {

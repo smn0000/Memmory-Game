@@ -40,8 +40,8 @@ const Grid = ({grid, size , onFlip}) => {
     <div className="grid-wrapper">
       <div className="grid" style={{gridTemplateColumns : `repeat(${size[0]},1fr)`, gridTemplateRows : `repeat(${size[1]},1fr)`}}>
         {grid.map( element => (
-          <div className='cell' onClick={() => onFlip(element.id)}>
-            <div data-guessed={element.guessed} data-flipped={element.flipped} key={element.id} className="cell-inner">
+          <div className='cell' key={element.id} data-guessed={element.guessed}  data-flipped={element.flipped} onClick={() => onFlip(element.id)}>
+            <div className="cell-inner">
                 <div className="front" style={{backgroundImage: 'url('+ svgs[element.image-1] +')'}}></div>
                 <div className="back"></div>
             </div>

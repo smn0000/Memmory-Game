@@ -16,9 +16,10 @@ const game = () => {
     const FLIP_SPEED = 500 //Delay between flip
     const BASE_TIME = 1000  // Base time to remember the layout
 
-    let timeout = []
+    let timeouts = []
 
     const startGame = (size) =>{
+      timeouts.forEach(timeout => clearTimeout(timeout))
       setScore(0)
       setGameOver(false)
       initializeGame(size);
@@ -27,13 +28,13 @@ const game = () => {
     }
 
     const stopGame = () => {
-      timeout.forEach(timeout => clearTimeout(timeout))
+      timeouts.forEach(timeout => clearTimeout(timeout))
       setStarted(false)
       setGrid([])
     }
 
     useEffect(()=>{  
-        timeout.push(setTimeout(() => {
+        timeouts.push(setTimeout(() => {
           if(grid.length > 0) {
             let temp = grid.slice()
             temp.forEach(element => element.flip())
@@ -116,7 +117,7 @@ const game = () => {
       //If correct
       if(firstCell.image == secondCell.image){ 
         setScore(current => current+1)
-        timeout.push(setTimeout(()=> {
+        timeouts.push(setTimeout(()=> {
             temp[firstCell.id].setGuessed()
             temp[secondCell.id].setGuessed() 
             setGrid(temp)
@@ -128,7 +129,7 @@ const game = () => {
       //If incorrect
       else{
         setScore(current => current-1)
-        timeout.push(setTimeout(()=> {
+        timeouts.push(setTimeout(()=> {
             temp[firstCell.id].flip()
             temp[secondCell.id].flip()
             setGrid(temp)
@@ -142,7 +143,7 @@ const game = () => {
     const checkForGameOver = () => grid.filter(element => !element.guessed === true).length === 0 ? true : false
     
     const handleGameOver = () =>  {
-      timeout.push(setTimeout( ()=> {
+      timeouts.push(setTimeout( ()=> {
         stopGame()
         setGameOver(true)
       },1000))
