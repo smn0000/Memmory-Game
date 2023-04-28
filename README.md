@@ -15,11 +15,11 @@ This project is simple memmory game
 <a href="https://memmorygame.vercel.app/" target="_blank">Live preview</a>
  
 ## Features
-* Keep your score
+* Keeping your score
 * Create custom board up to 8x8
 
-## Technologies
-Project is created with:
+## Technologies used
+Project created with:
 * React: 18.2.0
 * Vite: 4.1.0
 * Sass: 1.58.3
